@@ -1,55 +1,59 @@
 import React from 'react';
-import PropTypes from 'prop-types'
-import renderField from "./renderField";
-import renderFields from "./renderFields";
-import compileSchema from "./compileSchema";
-import buildSyncValidation, { setError } from "./buildSyncValidation";
-import { Form } from 'react-final-form';
+import PropTypes from 'prop-types';
+import renderField from './renderField';
+import renderFields from './renderFields';
+import compileSchema from './compileSchema';
+import DefaultTheme from './themes/bootstrap3';
+import buildSyncValidation, { setError } from './buildSyncValidation';
+import { reduxForm } from 'redux-form';
 
-const JForm = (props) => {
-  let { schema, handleSubmit, initialValues, theme, context, ajv, syncValidation } = props;
-  schema.showLabel = false;
-  schema = compileSchema(schema);
-  const formName = props.formKey || props.schema.title || "form";
-
+const BaseForm = (props) => {
+  const { schema, handleSubmit, theme, error, submitting, context } = props;
   return (
-    <Form onSubmit={handleSubmit}
-      form={formName}
-      validate={syncValidation || buildSyncValidation(schema, ajv)}
-      initialValues={initialValues}
-      renderFields={renderField.bind(this)}
-      context={{...props.context, formName}}
-      schema={schema}>
-      {({handleSubmit, error, submitting}) => (
-        <form onSubmit={handleSubmit}>
-          {renderField(schema, null, theme, "", context)}
-          <div>{error && <strong>{error}</strong>}</div>
-          <button className="btn btn-primary" type="submit" disabled={submitting}>
-            Submit
-          </button>
-        </form>
-      )}
-    </Form>
-  )
-}
+    <form onSubmit={handleSubmit}>
+      {renderField(schema, null, theme || DefaultTheme, '', context)}
+      <div>{error && <strong>{error}</strong>}</div>
+      <button className="btn btn-primary" type="submit" disabled={submitting}>
+        Submit
+      </button>
+    </form>
+  );
+};
 
-JForm.propTypes = {
+BaseForm.propTypes = {
   schema: PropTypes.object,
-  theme: PropTypes.any,
   handleSubmit: PropTypes.func,
+  theme: PropTypes.object,
+  error: PropTypes.any,
+  submitting: PropTypes.bool,
+  context: PropTypes.object,
+};
+
+const Jform = (props) => {
+  props.schema.showLabel = false;
+  const schema = compileSchema(props.schema);
+  const formName = props.formKey || props.schema.title || 'form';
+  const FinalForm = reduxForm({
+    form: props.formKey || props.schema.title || 'form',
+    validate: props.syncValidation || buildSyncValidation(schema, props.ajv),
+    initialValues: props.initialValues,
+    context: { ...props.context, formName },
+  })(props.baseForm || BaseForm);
+  return <FinalForm renderFields={renderField.bind(this)} {...props} schema={schema} />;
+};
+
+Jform.propTypes = {
+  schema: PropTypes.object,
+  onSubmit: PropTypes.func,
   initialValues: PropTypes.object,
   syncValidation: PropTypes.func,
   formKey: PropTypes.string,
+  baseForm: PropTypes.func,
   context: PropTypes.object,
-  ajv: PropTypes.object
+  theme: PropTypes.object,
+  ajv: PropTypes.object,
 };
 
-export default JForm;
+export default Jform;
 
-export {
-  renderFields,
-  renderField,
-  setError,
-  buildSyncValidation,
-  compileSchema,
-}
+export { renderFields, renderField, setError, buildSyncValidation, DefaultTheme, compileSchema };

@@ -1,12 +1,8 @@
-import { shallow, render, mount } from 'enzyme';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
-// Make Enzyme functions available in all test files without importing
 // @ts-ignore
-global.shallow = shallow;
-// @ts-ignore
-global.render = render;
-// @ts-ignore
-global.mount = mount;
+Enzyme.configure({ adapter: new Adapter() });
 
 // Fail tests on any warning
 console.error = (message) => {
