@@ -1,34 +1,33 @@
-import React from "react";
-import classNames from "classnames";
-import { Field } from "redux-form";
-import PropTypes from "prop-types";
-import DateSelector from "./DateSelector";
+import React from 'react';
+import classNames from 'classnames';
+import { Field } from 'redux-form';
+import PropTypes from 'prop-types';
+import DateSelector from './DateSelector';
 
 // produces an array [start..end-1]
-const range = (start, end) =>
-  Array.from({ length: end - start }, (v, k) => k + start);
+const range = (start, end) => Array.from({ length: end - start }, (v, k) => k + start);
 
 // produces an array [start..end-1] padded with zeros, (two digits)
 const rangeZeroPad = (start, end) =>
-  Array.from({ length: end - start }, (v, k) => ("0" + (k + start)).slice(-2));
+  Array.from({ length: end - start }, (v, k) => ('0' + (k + start)).slice(-2));
 
-const extractYear = value => {
+const extractYear = (value) => {
   return extractDateToken(value, 0);
 };
-const extractMonth = value => {
+const extractMonth = (value) => {
   return extractDateToken(value, 1);
 };
-const extractDay = value => {
+const extractDay = (value) => {
   return extractDateToken(value, 2);
 };
 
-const extractDateToken = (value, index) => {
+const extractDateToken = (value, index?) => {
   if (!value) {
-    return "";
+    return '';
   }
   const tokens = value.split(/-/);
   if (tokens.length !== 3) {
-    return "";
+    return '';
   }
   return tokens[index];
 };
@@ -46,17 +45,17 @@ class CompatibleDate extends React.Component {
       day: null,
       hour: null,
       minute: null,
-      second: null
+      second: null,
     };
     this.onBlur = this.onBlur.bind(this);
   }
 
   // Produces a RFC 3339 full-date from the state
   buildRfc3339Date() {
-    const year = this.state.year || "";
-    const month = this.state.month || "";
-    const day = this.state.day || "";
-    return year + "-" + month + "-" + day;
+    const year = this.state.year || '';
+    const month = this.state.month || '';
+    const day = this.state.day || '';
+    return year + '-' + month + '-' + day;
   }
 
   onChangeField(field, e) {
@@ -75,8 +74,8 @@ class CompatibleDate extends React.Component {
   render() {
     const field = this.props;
     const className = classNames([
-      "form-group",
-      { "has-error": field.meta.touched && field.meta.error }
+      'form-group',
+      { 'has-error': field.meta.touched && field.meta.error },
     ]);
     return (
       <div className={className}>
@@ -90,7 +89,7 @@ class CompatibleDate extends React.Component {
               range={range(field.startYear, field.endYear)}
               emptyOption="year"
               onBlur={this.onBlur}
-              onChange={this.onChangeField.bind(this, "year")}
+              onChange={this.onChangeField.bind(this, 'year')}
               {...field}
             />
           </li>
@@ -100,7 +99,7 @@ class CompatibleDate extends React.Component {
               range={rangeZeroPad(1, 13)}
               emptyOption="month"
               onBlur={this.onBlur}
-              onChange={this.onChangeField.bind(this, "month")}
+              onChange={this.onChangeField.bind(this, 'month')}
               {...field}
             />
           </li>
@@ -110,18 +109,15 @@ class CompatibleDate extends React.Component {
               range={rangeZeroPad(1, 32)}
               emptyOption="day"
               onBlur={this.onBlur}
-              onChange={this.onChangeField.bind(this, "day")}
+              onChange={this.onChangeField.bind(this, 'day')}
               {...field}
             />
           </li>
         </ul>
-        {field.meta.touched &&
-          field.meta.error && (
-            <span className="help-block">{field.meta.error}</span>
-          )}
-        {field.description && (
-          <span className="help-block">{field.description}</span>
+        {field.meta.touched && field.meta.error && (
+          <span className="help-block">{field.meta.error}</span>
         )}
+        {field.description && <span className="help-block">{field.description}</span>}
       </div>
     );
   }
@@ -134,21 +130,21 @@ CompatibleDate.propTypes = {
   startYear: PropTypes.string,
   endYear: PropTypes.string,
   label: PropTypes.string,
-  id: PropTypes.string
-}
+  id: PropTypes.string,
+};
 
-const CompatibleDateWidget = props => {
+const CompatibleDateWidget = (props) => {
   return (
     <Field
       component={CompatibleDate}
       label={props.label}
       name={props.fieldName}
       required={props.required}
-      id={"field-" + props.fieldName}
+      id={'field-' + props.fieldName}
       placeholder={props.schema.default}
       description={props.schema.description}
-      startYear={props.schema["start-year"] || 1900}
-      endYear={props.schema["end-year"] || new Date().getFullYear() + 5}
+      startYear={props.schema['start-year'] || 1900}
+      endYear={props.schema['end-year'] || new Date().getFullYear() + 5}
       type={props.type}
     />
   );
@@ -159,8 +155,8 @@ CompatibleDateWidget.propTypes = {
   label: PropTypes.string,
   fieldName: PropTypes.string,
   required: PropTypes.bool,
-  type: PropTypes.string
-}
+  type: PropTypes.string,
+};
 
 export default CompatibleDateWidget;
 

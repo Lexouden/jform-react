@@ -8,3 +8,6 @@ React.useLayoutEffect = React.useEffect;
 Enzyme.configure({ adapter: new Adapter() });
 
 // Fail tests on any warning
+console.error = (message) => {
+  throw new Error(message);
+};

@@ -1,4 +1,5 @@
 import { isEmpty as _isEmpty } from 'lodash'; // added for empty check
+import { SubmissionError } from 'redux-form';
 
 const convertToReduxFormErrors = (obj) => {
   let objectWithoutChildrenAndFalseErrors = {};
@@ -27,7 +28,7 @@ const convertToReduxFormErrors = (obj) => {
 const processSubmitErrors = (errors) => {
   if ('errors' in errors) {
     errors = convertToReduxFormErrors(errors.errors);
-    return errors;
+    throw new SubmissionError(errors);
   }
 };
 
