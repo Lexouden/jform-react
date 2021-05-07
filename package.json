@@ -2,7 +2,7 @@
   "name": "jform-react",
   "version": "0.0.1",
   "description": "Create react forms using JSON objects",
-  "main": "src/index.js",
+  "main": "./lib/index.js",
   "engines": {
     "node": ">=14.x"
   },
