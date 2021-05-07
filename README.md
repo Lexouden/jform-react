@@ -2,7 +2,7 @@
 Generate react forms using JSON objects
 
 
-> This package is heavily inspired by [liform-react](https://github.com/Limenius/liform-react)
+> This package is a updated TypeScript rewrite of [liform-react](https://github.com/Limenius/liform-react)
 
 ## Installation
 ``` bash 
