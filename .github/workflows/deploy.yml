@@ -27,7 +27,7 @@ jobs:
           retention-days: 2
   
   publish:
-    name: publish
+    name: Publish
     needs: build
     runs-on: ubuntu-latest
 
