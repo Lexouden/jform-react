@@ -1,5 +1,7 @@
 [![Quality Assurance](https://github.com/Lexouden/jform-react/actions/workflows/quality_assurance.yml/badge.svg)](https://github.com/Lexouden/jform-react/actions/workflows/quality_assurance.yml)
 [![Code Quality](https://github.com/Lexouden/jform-react/actions/workflows/code_quality.yml/badge.svg)](https://github.com/Lexouden/jform-react/actions/workflows/code_quality.yml)
+[![CodeQL](https://github.com/Lexouden/jform-react/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Lexouden/jform-react/actions/workflows/codeql-analysis.yml)
+
 # jform-react
 Generate react forms using JSON objects
 
