@@ -1,7 +1,6 @@
 module.exports = {
   verbose: true,
-  collectCoverageFrom: ['src/**/*.{ts}', '!**/node_modules/**', '!src/__tests__/**'],
-  setupFilesAfterEnv: ['./node_modules/jest-enzyme/lib/index.js'],
+  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!**/node_modules/**', '!src/__tests__/**'],
   testRegex: 'src/__tests__/.*spec\\.tsx?$',
   setupFiles: ['./src/__tests__/setup.ts'],
   transform: {
