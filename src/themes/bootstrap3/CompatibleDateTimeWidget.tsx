@@ -48,8 +48,8 @@ class CompatibleDateTime extends React.Component {
   public state;
   public static propTypes;
 
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       year: null,
       month: null,
@@ -95,6 +95,7 @@ class CompatibleDateTime extends React.Component {
       'form-group',
       { 'has-error': field.meta.touched && field.meta.error },
     ]);
+
     return (
       <div className={className}>
         <label className="control-label" htmlFor={field.id}>
@@ -172,11 +173,11 @@ class CompatibleDateTime extends React.Component {
 }
 
 CompatibleDateTime.propTypes = {
-  input: PropTypes.element,
+  input: PropTypes.object,
   meta: PropTypes.object,
   description: PropTypes.string,
-  startYear: PropTypes.string,
-  endYear: PropTypes.string,
+  startYear: PropTypes.number,
+  endYear: PropTypes.number,
   label: PropTypes.string,
   id: PropTypes.string,
 };
@@ -184,6 +185,7 @@ CompatibleDateTime.propTypes = {
 const CompatibleDateTimeWidget = (props) => {
   return (
     <Field
+      component={CompatibleDateTime}
       label={props.label}
       name={props.fieldName}
       required={props.required}
@@ -192,9 +194,8 @@ const CompatibleDateTimeWidget = (props) => {
       description={props.schema.description}
       startYear={props.schema['start-year'] || 1900}
       endYear={props.schema['end-year'] || new Date().getFullYear() + 5}
-      type={props.type}>
-      <CompatibleDateTime />
-    </Field>
+      type={props.type}
+    />
   );
 };
 

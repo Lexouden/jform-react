@@ -124,11 +124,11 @@ class CompatibleDate extends React.Component {
 }
 
 CompatibleDate.propTypes = {
-  input: PropTypes.element,
+  input: PropTypes.object,
   meta: PropTypes.object,
   description: PropTypes.string,
-  startYear: PropTypes.string,
-  endYear: PropTypes.string,
+  startYear: PropTypes.number,
+  endYear: PropTypes.number,
   label: PropTypes.string,
   id: PropTypes.string,
 };

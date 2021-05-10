@@ -1,18 +1,18 @@
-import { extractDateTimeToken } from '../../../themes/bootstrap3/CompatibleDateTimeWidget';
 import React from 'react';
+import { extractDateToken } from '../../../themes/bootstrap3/CompatibleDateWidget';
 import Jform from '../../../';
 import { FormFrame } from '../../test-utils';
 import { render } from 'enzyme';
 
-describe('CompatibleDateTimeWidget', () => {
+describe('CompatibleDateWidget', () => {
   it('on null extracted value is empty', () => {
-    expect(extractDateTimeToken(null)).toBe('');
+    expect(extractDateToken(null)).toBe('');
   });
   it('on invalid format extracted value is empty', () => {
-    expect(extractDateTimeToken('lala-land')).toBe('');
+    expect(extractDateToken('lala-land')).toBe('');
   });
   it('can extract month', () => {
-    expect(extractDateTimeToken('1967-04-03T23:04:16', 1)).toBe('04');
+    expect(extractDateToken('1967-04-03', 1)).toBe('04');
   });
 
   it('should render a form', () => {
@@ -21,7 +21,7 @@ describe('CompatibleDateTimeWidget', () => {
       properties: {
         date: {
           type: 'string',
-          widget: 'compatible-datetime',
+          widget: 'compatible-date',
         },
       },
     };
@@ -32,7 +32,6 @@ describe('CompatibleDateTimeWidget', () => {
       </FormFrame>
     );
     const wrapper = render(Component);
-
-    expect(wrapper.find('select').length).toEqual(6);
+    expect(wrapper.find('select').length).toEqual(3);
   });
 });
