@@ -1,5 +1,4 @@
 {
-  "exclude": ["src/__tests__/**/*"],
   "jsc": {
     "parser": {
       "syntax": "typescript",
