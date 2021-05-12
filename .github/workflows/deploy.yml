@@ -20,11 +20,15 @@ jobs:
         run: npm ci
       - name: Build lib
         run: npm run build:lib
+      - name: Create package
+        shell: bash
+        run: |
+          tar czf package.tgz * .??*
       - name: Archive artifact
         uses: actions/upload-artifact@v2
         with: 
-          name: dist
-          path: ./
+          name: package
+          path: package.tgz
           retention-days: 2
   
   publish:
@@ -36,7 +40,11 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: dist
+          name: package
+      - name: Unzip package
+        shell: bash
+        run: |
+          tar xzf package.tgz
       - name: Publish to npm
         run: npm publish
         env:
