@@ -1,8 +1,9 @@
 name: Package deployment
 
-on:
+on: 
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs: 
   build:
