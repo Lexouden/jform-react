@@ -1,6 +1,6 @@
 {
   "name": "jform-react",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Create react forms using JSON objects",
   "main": "./lib/index.js",
   "engines": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "npm run build:dist",
-    "postbuild": "cp package.json dist && rm -rf dist/__tests__",
+    "postbuild": "cp package.json README.md LICENSE dist && rm -rf dist/__tests__",
     "build:dist": "npx swc src -d dist",
     "lint": "eslint src",
     "test": "jest",
