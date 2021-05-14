@@ -20,7 +20,7 @@ jobs:
       - name: Install modules
         run: npm ci
       - name: Build dist
-        run: npm run build:dist
+        run: npm run build
       - name: Create package
         shell: bash
         run: |
