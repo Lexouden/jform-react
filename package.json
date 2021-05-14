@@ -7,8 +7,9 @@
     "node": ">=14.x"
   },
   "scripts": {
-    "build": "npm run build:lib",
-    "build:lib": "npx swc src -d lib",
+    "build": "npm run build:dist",
+    "postbuild": "cp package.json dist && rm -rf dist/__tests__",
+    "build:dist": "npx swc src -d dist",
     "lint": "eslint src",
     "test": "jest",
     "test:cov": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text npm test"
