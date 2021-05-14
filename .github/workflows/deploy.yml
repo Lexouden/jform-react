@@ -21,31 +21,6 @@ jobs:
         run: npm ci
       - name: Build dist
         run: npm run build
-      - name: Create package
-        shell: bash
-        run: |
-          tar czf package.tgz * .??*
-      - name: Archive artifact
-        uses: actions/upload-artifact@v2
-        with: 
-          name: package
-          path: package.tgz
-          retention-days: 2
-  
-  publish:
-    name: Publish
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: package
-      - name: Unzip package
-        shell: bash
-        run: |
-          tar xzf package.tgz
       - name: Publish to npm
         run: npm publish dist --access public
         env:
