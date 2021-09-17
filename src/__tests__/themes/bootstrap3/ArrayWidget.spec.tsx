@@ -1,7 +1,7 @@
 import React from 'react';
 import Liform from '../../../';
 import { FormFrame } from '../../test-utils';
-import { mount } from 'enzyme';
+import { render } from 'enzyme';
 
 describe('ArrayWidget', () => {
   it('should render a form with children', () => {
@@ -36,7 +36,7 @@ describe('ArrayWidget', () => {
       </FormFrame>
     );
 
-    const wrapper = mount(Component);
+    const wrapper = render(Component);
 
     expect(wrapper.find('.btn')).toHaveLength(2);
   });
